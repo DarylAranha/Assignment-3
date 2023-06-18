@@ -1,8 +1,17 @@
+// All imports to run the server
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
+// All imports for Authentication
+import session from 'express-session';
+import passport from 'passport';
+import passportLocal from 'passport-local';
+
+// Authentication object
+let strategy = passportLocal.Strategy;
+import User from '../Models/user';
 
 // Database modules
 import mongoose from 'mongoose';
@@ -32,10 +41,29 @@ import indexRouter from '../Routes/index';
 
 let app = express();
 
+// All middleware modules
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Express Sessions
+app.use(session({
+    secret: db.authSecret,
+    saveUninitialized: false,
+    resave: false
+}));
+
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// implement an Auth Strategy
+passport.use(User.createStrategy());
+
+// serialize and deserialize user data
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/api', indexRouter);
 

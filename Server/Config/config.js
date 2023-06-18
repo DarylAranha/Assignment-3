@@ -10,6 +10,7 @@ const getConfig = () => {
     return {
         LOCAL_DB: process.env.LOCAL_DB_URL,
         PRODUCTION_DB: process.env.PRODUCTION_DB_URL,
+        AUTH_SECRET: process.env.AUTH_SECRET
     };
 };
 const getSanitzedConfig = (config) => {
