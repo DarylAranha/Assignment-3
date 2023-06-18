@@ -12,7 +12,7 @@ let movieSchema = new mongoose_1.Schema({
     year: Number,
     length: Number,
     shortDescription: String,
-    mpaRating: Number,
+    mpaRating: String,
     criticsRating: Number,
     posterLink: String
 });

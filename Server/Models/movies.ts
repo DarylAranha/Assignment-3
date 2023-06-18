@@ -11,7 +11,7 @@ interface IMovies {
     year: number,
     length: number,
     shortDescription: string,
-    mpaRating: number,
+    mpaRating: string,
     criticsRating: number,
     posterLink: string
 }
@@ -27,7 +27,7 @@ let movieSchema = new Schema<IMovies>({
     year: Number,
     length: Number,
     shortDescription: String,
-    mpaRating: Number,
+    mpaRating: String,
     criticsRating: Number,
     posterLink: String
 });

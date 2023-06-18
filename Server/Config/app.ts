@@ -8,7 +8,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import db from './db';
 
-mongoose.connect(db.remoteURI);
+mongoose.connect(db.localURI);
 
 // DB Connection Events
 // Event 1: When connection is established
