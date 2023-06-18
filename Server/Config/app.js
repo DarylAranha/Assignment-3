@@ -13,7 +13,7 @@ let strategy = passport_local_1.default.Strategy;
 const user_1 = __importDefault(require("../Models/user"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const db_1 = __importDefault(require("./db"));
-mongoose_1.default.connect(db_1.default.localURI);
+mongoose_1.default.connect(db_1.default.remoteURI);
 mongoose_1.default.connection.on('connected', function () {
     console.log(`Connected to MongoDB`);
     console.log(mongoose_1.default.connection.readyState);

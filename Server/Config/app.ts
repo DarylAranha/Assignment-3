@@ -17,7 +17,7 @@ import User from '../Models/user';
 import mongoose from 'mongoose';
 import db from './db';
 
-mongoose.connect(db.localURI);
+mongoose.connect(db.remoteURI);
 
 // DB Connection Events
 // Event 1: When connection is established
