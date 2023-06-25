@@ -4,6 +4,18 @@ import passport from "passport";
 import User from '../Models/user';
 import Movie from '../Models/movies';
 
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * Sanitizes the string by splitting it into array of strings
+ * @param  {[string]} unsanitizedArry String seperated with comma
+ * 
+ * @returns {[string]}  Returns Array of stings
+ * 
+ */
 function SanitizeArray (unsanitizedArry: string[]): string[] {
     
     let sanizitedArray: string[] = Array<string>()
@@ -14,7 +26,19 @@ function SanitizeArray (unsanitizedArry: string[]): string[] {
     return sanizitedArray;
 }
 
-// Authentication Fuction 
+
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * Creates a new user using passport
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function ProcessRegister(req:Request, res:Response, next:NextFunction): void
 {
     // instantiate a new user object
@@ -44,6 +68,18 @@ export function ProcessRegister(req:Request, res:Response, next:NextFunction): v
     });
 }
 
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * login functionality
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function ProcessLogin(req:Request, res:Response, next:NextFunction): void
 {
     passport.authenticate('local', (err: any, user: any, info: any) => {
@@ -71,6 +107,18 @@ export function ProcessLogin(req:Request, res:Response, next:NextFunction): void
     })(req, res, next);
 }
 
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * logout functionality
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function ProcessLogout(req:Request, res:Response, next:NextFunction): void
 {
     req.logout(() => {
@@ -81,7 +129,18 @@ export function ProcessLogout(req:Request, res:Response, next:NextFunction): voi
     res.json({success: true, msg: 'User Logged out Successfully!'});
 }
 
-// Movies Function
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * Find list of all movies in the database
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function DisplayMovieList(req: Request, res: Response, next: NextFunction) {
     // Find the list of all the movies
     Movie.find({})
@@ -93,6 +152,18 @@ export function DisplayMovieList(req: Request, res: Response, next: NextFunction
         })
 }
 
+/**
+ * File: Controllers/moives.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * Finds the movies based on movie ID
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function DisplayMovieByID(req: Request, res: Response, next: NextFunction) {
     
     let id = req.params.id;
@@ -105,6 +176,18 @@ export function DisplayMovieByID(req: Request, res: Response, next: NextFunction
         })
 }
 
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * Adds new movie to the database
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function AddMovie(req: Request, res: Response, next: NextFunction) {
 
     let genres = SanitizeArray((req.body.genres as string).split(","));
@@ -138,6 +221,18 @@ export function AddMovie(req: Request, res: Response, next: NextFunction) {
         })
 }
 
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * Updates the movie based on movie ID
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function UpateMovie(req: Request, res: Response, next: NextFunction) {
 
     let id = req.params.id;
@@ -173,6 +268,18 @@ export function UpateMovie(req: Request, res: Response, next: NextFunction) {
         })
 }
 
+/**
+ * File: Controllers/movies.ts 
+ * Author: Daryl Aranha
+ * ID: 200498080
+ * Date: June 25, 2023
+ * 
+ * Deletes the movies based on movie ID
+ * @param  {[Request]} req Contains request parameters
+ * @param  {[Response]} res Contains response parameter
+ * @param  {[NextFunction]} next Contains middleware functionality
+ * 
+ */
 export function DeleteMovie(req: Request, res: Response, next: NextFunction) {
 
     let id = req.params.id;
