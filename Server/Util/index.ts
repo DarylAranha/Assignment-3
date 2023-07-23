@@ -21,5 +21,5 @@ export function GenerateToken(user: UserDocument): string {
     // Note: this may be made considerably shorter for security purposes
   };
 
-  return jwt.sign(payload, db.secret, jwtOptions);
+  return jwt.sign(payload, db.authSecret, jwtOptions);
 }

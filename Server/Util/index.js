@@ -16,7 +16,7 @@ function GenerateToken(user) {
     const jwtOptions = {
         expiresIn: 604800,
     };
-    return jsonwebtoken_1.default.sign(payload, db_1.default.secret, jwtOptions);
+    return jsonwebtoken_1.default.sign(payload, db_1.default.authSecret, jwtOptions);
 }
 exports.GenerateToken = GenerateToken;
 //# sourceMappingURL=index.js.map
