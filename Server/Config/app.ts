@@ -18,7 +18,7 @@ let JWTStrategy = passportJWT.Strategy;
 let ExtractJWT = passportJWT.ExtractJwt;
 
 // Authentication object
-let strategy = passportLocal.Strategy;
+let localStrategy = passportLocal.Strategy;
 import User from "../Models/user";
 
 // Database modules
@@ -73,6 +73,27 @@ passport.use(User.createStrategy());
 // serialize and deserialize user data
 passport.serializeUser(User.serializeUser() as any);
 passport.deserializeUser(User.deserializeUser());
+
+// setup JWT Options
+let jwtOptions = {
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: db.authSecret,
+};
+
+// setup JWT Strategy
+let strategy = new JWTStrategy(jwtOptions, function (jwt_payload, done) {
+  try {
+    const user = User.findById(jwt_payload.id);
+    if (user) {
+      return done(null, user);
+    }
+    return done(null, false);
+  } catch (error) {
+    return done(error, false);
+  }
+});
+
+passport.use(strategy);
 
 app.use("/api", indexRouter);
 
